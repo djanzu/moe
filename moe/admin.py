@@ -2,7 +2,7 @@ from django.contrib import admin
 from . import models
 
 
-@admin.register(models.Sengakuji)
+@admin.register(models.Moyori)
 class TweetAdmin(admin.ModelAdmin):
     list_display = ("dt", "cnt",)
     list_filter = ("dt", "cnt",)

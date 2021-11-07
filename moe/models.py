@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-class Sengakuji(models.Model):
+class Moyori(models.Model):
     dt = models.DateTimeField(default=timezone.now)
     cnt = models.IntegerField()
 
