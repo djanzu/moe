@@ -1,18 +1,10 @@
 from django.db import models
 from django.utils import timezone
 
-class Moyori(models.Model):
+class Kiroku(models.Model):
     dt = models.DateTimeField(default=timezone.now)
-    cnt = models.IntegerField()
+    moyori_cnt = models.IntegerField()
+    moe_cnt = models.IntegerField()
 
-    def __str__(self):
-        return self.cnt
-
-
-class Moework(models.Model):
-    dt = models.DateTimeField(default=timezone.now)
-    cnt = models.IntegerField()
-
-    def __str__(self):
-        return self.cnt
-    
+    # def __str__(self):
+    #     return self.cnt
