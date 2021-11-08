@@ -1,7 +1,7 @@
-import path
+from django.urls import re_path
 from . import views
 
 urlpatterns = [
-    path('moe/', views.KirokuView.as_view(), name='kiroku_list'),
+    re_path('^$', views.KirokuView.as_view(), name='kiroku_list'),
 ]
 
