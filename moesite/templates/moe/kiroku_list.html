@@ -1,4 +1,5 @@
 {% extends "moe/base.html" %}
+{% load humanize %}
 
 {% block pagetitle %}
 <h2>記録一覧</h2>
@@ -16,13 +17,13 @@
   </tr>
 </thead>
 <tbody>
-  {% for item in object_list %}
+  {% for item in datas %}
     <tr style="vertical-align: middle;">
       <td>{{ item.dt | date:"Y-m-d" }}</td>
-      <td>{{ item.moyori_cnt }}</td>
-      <td></td>
-      <td>{{ item.moe_cnt }}</td>
-      <td></td>
+      <td>{{ item.moyori_cnt | intcomma }}</td>
+      <td>{{ item.diff_moyori }}</td>
+      <td>{{ item.moe_cnt | intcomma }}</td>
+      <td>{{ item.diff_moe }}</td>
     </tr>
   {% endfor %}
 </tbody>
