@@ -14,6 +14,8 @@ class Command(BaseCommand):
             {"dt": "2021/11/03 19:26", "moyori": 29616, "moe": 10333},
             {"dt": "2021/11/04 19:51", "moyori": 29637, "moe": 10390},
             {"dt": "2021/11/05 20:41", "moyori": 29662, "moe": 10453},
+            {"dt": "2021/11/06 21:06", "moyori": 29726, "moe": 10521},
+            {"dt": "2021/11/07 19:19", "moyori": 29777, "moe": 10572},
         ]
         for i in x:
             dt = datetime.datetime.strptime(i['dt'], '%Y/%m/%d %H:%M')
