@@ -27,7 +27,7 @@
     </tr>
   {% endfor %}
   <tr>
-    <td><input type="text" id="id_dt"></td>
+    <td><input type="text" id="id_dt" placeholder="2020/01/01 00:00:00"></td>
     <td><input type="text" id="id_moyori"></td>
     <td></td>
     <td><input type="text" id="id_moe"></td>
@@ -35,4 +35,29 @@
   </tr>
 </tbody>
 </table>
+{% csrf_token %}
+{% endblock %}
+
+{% block anotherJS %}
+<script>
+  $(function(){
+    $("#id_submit").click(function(e){
+      $.ajax({
+        url: "/moe/x/",
+        method: "POST",
+        dataType: "text",
+        data: {
+          dt: $("#id_dt").val(),
+          moyori: $("#id_moyori").val(),
+          moe: $("#id_moe").val(),
+          csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+        },
+        timeout: 5000,
+      }).done(function(r){
+        console.log(r);
+        location.reload();
+      });
+    });
+  });
+</script>
 {% endblock %}

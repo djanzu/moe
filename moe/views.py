@@ -1,5 +1,8 @@
+import datetime
 from django.shortcuts import render
 from django.views import generic
+from django.http import JsonResponse
+from django.utils.timezone import make_aware
 from . import models
 
 # Create your views here.
@@ -34,3 +37,25 @@ class KirokuView(generic.ListView):
 
     def get_queryset(self):
         return models.Kiroku.objects.all().order_by('-dt')  
+
+
+class AjaxWriteView(generic.FormView):
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        """ save data """
+        input_dt = request.POST.get("dt", "").replace("-", "/")
+        if input_dt != "":
+            dt = datetime.datetime.strptime(input_dt, '%Y/%m/%d %H:%M')
+        else:
+            dt = datetime.datetime.now()
+        dt_aware = make_aware(dt)
+        kiroku_obj = models.Kiroku(
+            dt=dt_aware,
+            moyori_cnt=request.POST.get('moyori'),
+            moe_cnt=request.POST.get('moe'))
+        kiroku_obj.save()
+
+        return JsonResponse({
+            "stat": "OK",
+            "dt": dt_aware
+            })
