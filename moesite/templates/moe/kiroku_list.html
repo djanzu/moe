@@ -19,7 +19,7 @@
 <tbody>
   {% for item in datas %}
     <tr style="vertical-align: middle;">
-      <td>{{ item.dt | date:"Y-m-d H:i:s" }}</td>
+      <td>{{ item.dt | date:"Y/m/d H:i:s" }}</td>
       <td>{{ item.moyori_cnt | intcomma }}</td>
       <td>{{ item.diff_moyori }}</td>
       <td>{{ item.moe_cnt | intcomma }}</td>
