@@ -51,8 +51,8 @@ class AjaxWriteView(generic.FormView):
         dt_aware = make_aware(dt)
         kiroku_obj = models.Kiroku(
             dt=dt_aware,
-            moyori_cnt=request.POST.get('moyori'),
-            moe_cnt=request.POST.get('moe'))
+            moyori_cnt=request.POST.get('moyori').replace(",", ""),
+            moe_cnt=request.POST.get('moe').replace(",", ""))
         kiroku_obj.save()
 
         return JsonResponse({
