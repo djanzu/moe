@@ -58,8 +58,8 @@ class KirokuView(generic.ListView):
             "left_day_moyori": left_day_moyori,
             "left_day_moe3": left_day_moe3,
             "left_day_moe5": left_day_moe5,
-            "ave_moyori": math.floor(diff_moyori / diff_dt.days),
-            "ave_moe": math.floor(diff_moe / diff_dt.days),
+            "ave_moyori": math.floor(ave_moyori),
+            "ave_moe": math.floor(ave_moe),
         }
 
         return context
