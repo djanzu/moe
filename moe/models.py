@@ -8,3 +8,7 @@ class Kiroku(models.Model):
 
     # def __str__(self):
     #     return self.cnt
+
+class Mokuhyo(models.Model):
+    last_moyori = models.IntegerField()
+    last_moe = models.IntegerField()

@@ -1,8 +1,10 @@
 import datetime
+import math
 from django.shortcuts import render
 from django.views import generic
 from django.http import JsonResponse
 from django.utils.timezone import make_aware
+from django.db.models import Avg, Min, Max
 from . import models
 
 # Create your views here.
@@ -32,7 +34,34 @@ class KirokuView(generic.ListView):
                 "diff_moe": diff_moe,
             })
         context['datas'] = out
-            
+
+        # 過去７日間
+        kako7 = datetime.datetime.now() - datetime.timedelta(days=7)
+        # kiroku_ave = models.Kiroku.objects.filter(dt__gt=make_aware(kako7)).aggregate(ave_moyori_cnt=Avg('moyori_cnt'), ave_moe_cnt=Avg('moe_cnt'))
+        kiroku2 = models.Kiroku.objects.filter(dt__gt=make_aware(kako7)).aggregate(
+            min_moyori_cnt=Min('moyori_cnt'), 
+            max_moyori_cnt=Max('moyori_cnt'), 
+            min_moe_cnt=Min('moe_cnt'),
+            max_moe_cnt=Max('moe_cnt'),
+            max_dt=Max('dt'),
+            min_dt=Min('dt')
+            )
+        diff_moyori = kiroku2['max_moyori_cnt'] - kiroku2['min_moyori_cnt']
+        diff_moe = kiroku2['max_moe_cnt'] - kiroku2['min_moe_cnt']
+        diff_dt = kiroku2['max_dt'] - kiroku2['min_dt']
+        ave_moyori = diff_moyori / diff_dt.days
+        ave_moe = diff_moe / diff_dt.days
+        left_day_moyori = math.ceil((50000 - kiroku2['max_moyori_cnt']) / ave_moyori)
+        left_day_moe3 = math.ceil((30000 - kiroku2['max_moe_cnt']) / ave_moe)
+        left_day_moe5 = math.ceil((50000 - kiroku2['max_moe_cnt']) / ave_moe)
+        context['otherdata'] = {
+            "left_day_moyori": left_day_moyori,
+            "left_day_moe3": left_day_moe3,
+            "left_day_moe5": left_day_moe5,
+            "ave_moyori": math.floor(diff_moyori / diff_dt.days),
+            "ave_moe": math.floor(diff_moe / diff_dt.days),
+        }
+
         return context
 
     def get_queryset(self):

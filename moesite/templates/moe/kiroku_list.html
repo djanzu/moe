@@ -27,6 +27,13 @@
     </tr>
   {% endfor %}
   <tr>
+    <td></td>
+    <td>50,000 まであと{{ otherdata.left_day_moyori | intcomma }} 日</td>
+    <td>{{ otherdata.ave_moyori }}</td>
+    <td>30,000 まであと{{ otherdata.left_day_moe3 | intcomma }} 日<br>50,000 まであと{{ otherdata.left_day_moe5 | intcomma }} 日</td>
+    <td>{{ otherdata.ave_moe }}</td>
+  </tr>
+  <tr>
     <td><input type="text" id="id_dt" placeholder="2020/01/01 00:00:00"></td>
     <td><input type="text" id="id_moyori"></td>
     <td></td>
@@ -35,6 +42,7 @@
   </tr>
 </tbody>
 </table>
+
 {% csrf_token %}
 {% endblock %}
 
