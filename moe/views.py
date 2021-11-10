@@ -54,12 +54,18 @@ class KirokuView(generic.ListView):
         left_day_moyori = math.ceil((50000 - kiroku2['max_moyori_cnt']) / ave_moyori)
         left_day_moe3 = math.ceil((30000 - kiroku2['max_moe_cnt']) / ave_moe)
         left_day_moe5 = math.ceil((50000 - kiroku2['max_moe_cnt']) / ave_moe)
+        reach_moyori = make_aware(datetime.datetime.now() + datetime.timedelta(days=left_day_moyori))
+        reach_moe3 = make_aware(datetime.datetime.now() + datetime.timedelta(days=left_day_moe3))
+        reach_moe5 = make_aware(datetime.datetime.now() + datetime.timedelta(days=left_day_moe5))
         context['otherdata'] = {
             "left_day_moyori": left_day_moyori,
             "left_day_moe3": left_day_moe3,
             "left_day_moe5": left_day_moe5,
             "ave_moyori": math.floor(ave_moyori),
             "ave_moe": math.floor(ave_moe),
+            "reach_moyori": reach_moyori,
+            "reach_moe3": reach_moe3,
+            "reach_moe5": reach_moe5,
         }
 
         return context
